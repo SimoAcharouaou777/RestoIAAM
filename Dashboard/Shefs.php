@@ -44,8 +44,8 @@
             <td>$row[email]</td>
             <td>$row[PASSWORD]</td>
             <td>
-                <a class='btn btn-primary btn-sm' href='updateuser.php?id=$row[id]'>Update</a>
-                <a class='btn btn-danger btn-sm' href='deleteuser.php?id=$row[id]'>Delete</a>
+                <a class='btn btn-primary btn-sm' href='updateShefs.php?id=$row[id]'>Update</a>
+                <a class='btn btn-danger btn-sm' href='deleteShefs.php?id=$row[id]'>Delete</a>
             </td>
         </tr>
             ";

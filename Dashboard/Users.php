@@ -46,7 +46,7 @@
         if(!$result){
             die("invalid query ".mysqli_error($connect));
         }
-
+        
         // read data of each row 
         while($row = mysqli_fetch_assoc($result)){
             echo "<tr>

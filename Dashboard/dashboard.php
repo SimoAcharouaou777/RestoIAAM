@@ -58,7 +58,7 @@ $shef = mysqli_query($connect,$sql);
 			<ul>
 				<li><i class="fa fa-dashboard me-3" ></i> Dashboard</li>
 				<li><a href="Users.php" style="text-decoration : none"><i class="fa fa-store me-3"></i> Users</li></a>
-				<li><a href="Orders.php" style="text-decoration : none"><i class="fa fa-message me-3"></i> orders</li></a>
+				<li><a href="Shefs.php" style="text-decoration : none"><i class="fa fa-message me-3"></i> Shefs</li></a>
 				<li><a href="Products.php" style="text-decoration : none"><i class="fa-solid fa-check me-3"></i> Product </li></a>
 				<li><i class="fa fa-phone me-3"></i> Help</li>
 				<li><i class="fa-solid fa-gear me-3"></i> Setting</li>

@@ -1,0 +1,426 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Roboto Condensed", sans-serif;
+    color: var(--secondColor);
+}
+/* les color principe de page */
+:root {
+    --mainColor: #fe7f32;
+    --secondColor: #222222;
+    --textColor: #eeeeee;
+}
+
+body {
+    background-color: var(--textColor);
+}
+
+/* nav bar editing */
+.navbar-brand img {
+    width: 90px;
+}
+.container-fluid.first-section{
+    z-index: 793468;
+}
+
+.first-section {
+    background-color: #222222;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+}
+
+ul li .nav-link {
+    color: var(--textColor);
+    font-size: large;
+    position: relative;
+}
+
+ul li .nav-link.hoverAfter::after {
+    content: " ";
+    position: absolute;
+    height: 2px;
+    width: 70%;
+    bottom: 10%;
+    left: 14%;
+    background-color: var(--mainColor);
+    transform: scaleX(0);
+    transition: all 0.2s linear;
+}
+
+ul li .nav-link.hoverAfter:hover::after {
+    transform: scaleX(1);
+}
+
+ul li .nav-link i {
+    color:var(--mainColor);
+    font-size: large;
+    
+}
+
+ul li .nav-link i:hover {
+    transform: scale(1.2);
+    transition: all 0.2s linear;
+}
+
+ul li .nav-link:hover {
+    color: var(--mainColor);
+}
+
+ul li .nav-link.loginBtn {
+    background-color: var(--mainColor);
+    padding: 8px 30px;
+    border-radius: 10px;
+}
+
+ul li .nav-link.loginBtn:hover {
+    background-color: #ffffff00;
+    
+}
+.fa-solid{
+    color: #FF6305;
+}
+
+.collapse {
+    display: flex;
+    justify-content: end;
+}
+
+@media (max-width: 990px) {
+    .collapse {
+        display: flex;
+        justify-content: start;
+    }
+}
+
+.navbar-expand-lg {
+    background-color: #0004ff00;
+    position: fixed;
+    z-index: 1000;
+    width: 100%;
+    transition: all 0.4s linear;
+    left: 0;
+    top: 0;
+    right: 0;
+}
+
+.navbar-expand-lg-transparent-remove {
+    background-color: var(--textColor);
+}
+
+.navbar-expand-lg-transparent-remove ul li .nav-link {
+    color: var(--secondColor);
+}
+
+.navbar-expand-lg-transparent-remove ul li .nav-link:hover {
+    color: var(--mainColor);
+}
+
+/* end first section && navbar */
+
+/* the first image next to the navbar */
+.image-container {
+    position: relative;
+}
+
+.image-container img {
+    object-fit: cover;
+    width: 100%;
+    height: 60vh;
+
+}
+
+.banner-text h1 {
+    color: white;
+    position: absolute;
+    top: 35%;
+    right: 50%;
+}
+
+/* We invite you to our restaurant */
+
+.firstsection-about {
+    margin-top: 50px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.firstsection-about video {
+    object-fit: cover;
+    width: 80%;
+    height: 90vh;
+}
+/* first cards in about */
+.WhatWe-Do {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.cards-about .card:hover{
+    transform: scale(1.1);
+    transition: 1s;
+}
+.card img:hover{
+    transform: rotate(360deg);
+    transition:transform 1.5s;
+}
+
+.WhatWe-Do .cards-about {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 50px;
+}
+
+.WhatWe-Do .cards-about .card {
+    justify-content: center;
+    align-items: center;
+    background: #D9D9D9
+}
+
+.WhatWe-Do .cards-about .card img {
+    width: 74px;
+    height: 74px;
+    margin-top: 30px;
+}
+/* Our team cards : informations and members of the team */
+.meetourtteam-about {
+    margin-top: 70px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-top: 140px;
+}
+
+.imagecards {
+    width: 14rem;
+    margin: 1.5rem;
+    border-radius: 10px;
+    background-color: black;
+}
+
+.imagecards img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.imagecards .insideimage-container .name-job {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin: 0px;
+    margin-top: 0px;
+    gap: 8px;
+
+}
+
+.imagecards .insideimage-container .name-job h5 {
+
+    color: #FFF;
+    font-family: Roboto Condensed;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-top: 6px;
+}
+
+.imagecards .insideimage-container .name-job p {
+    color: #FF6305;
+    font-family: Roboto Condensed;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+
+
+.imagecards:hover {
+    transform: scale(1.1);
+    transition: 1s;
+}
+
+.ourteam-about{
+    display: flex;
+    justify-content: space-around;
+    margin-top: 50px;
+}
+
+.imagecards .clickicon{
+    cursor: pointer;
+}
+
+.name-job-clickicon{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.name-job-clickicon img{
+    width: 35px;
+    height: 35px;
+}
+.PersonSocialMedia .socialmediaicons{
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    position:absolute;
+    top: 96px;
+    right: 19px;
+    z-index: 1100;
+}
+.imagecards{
+    position: relative;
+}
+ .PersonSocialMedia .socialmediaicons img{
+    width: 25px;
+    height: 25px;
+}
+
+/* the end of our team images */
+
+/* start footer   */
+footer {
+    height: fit-content;
+    background-color: var(--secondColor);
+    margin: 60px;
+}
+
+footer ul {
+    list-style: none;
+    color: var(--textColor);
+}
+
+footer ul li {
+    color: var(--textColor);
+    padding: 20px;
+    font-size: large;
+    font-style: italic;
+}
+
+footer ul:not(.first-list) li:not(:first-child) {
+    opacity: 0.6;
+}
+
+footer ul:not(.first-list) li:not(:first-child):hover {
+    text-decoration: underline;
+}
+
+footer ul li i {
+    color: var(--mainColor);
+}
+
+footer ul li:first-child {
+    font-size: xx-large;
+    font-weight: bold;
+    font-style: italic;
+}
+
+footer ul li:first-child:hover {
+    color: var(--mainColor);
+}
+
+footer ul.first-list li:not(:first-child) {
+    font-size: large;
+    font-style: italic;
+    font-weight: lighter;
+}
+
+footer ul.first-list li i {
+    font-size: xx-large;
+}
+
+footer ul.first-list li form input[type="email"] {
+    width: 140px;
+    background-color: var(--mainColor);
+    border: none;
+    outline: none;
+    height: 40px;
+    /* font-size: 10px; */
+}
+
+footer ul.first-list li form input[type="email"]::placeholder {
+    color: #fff;
+    font-size: small;
+}
+
+footer ul.first-list li form input[type="email"]:focus {
+    border: none;
+    outline: none;
+}
+
+footer ul.first-list li form input[type="submit"] {
+    background-color: var(--secondColor);
+    border: solid 2px var(--mainColor);
+    outline: none;
+    padding: 5px 6px;
+    color: var(--mainColor);
+}
+
+/* end footer   */
+
+/* responsive */
+
+@media(max-width : 990px){
+
+      .WhatWe-Do .cards-about{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        place-items: center;
+        gap: 30px;
+    }
+
+    .ourteam-about{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        place-items: center;
+    }
+
+    .image-container{
+        min-width: 100%;
+    }
+    .firstsection-about video{
+        height: 70vh;
+    }
+    .navbar-toggler-icon{
+        background-color: #ffffff70;
+       
+    }
+    button.navbar-toggler{
+    background-color: #fe7f32;
+   }
+}
+@media(max-width : 485px){
+
+    .WhatWe-Do .cards-about{
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+    .image-container{
+        min-height: 100%;
+    }
+    .ourteam-about{
+        display: grid;
+        grid-template-columns: 1fr;
+        overflow: hidden;
+        justify-content: space-around;
+    }
+    .ourteam-about .imagecards{
+        min-width: 50%
+    }
+    .banner-text h1{
+        top: 55%;
+        right: 41%;
+    }
+    .image-container img{
+        object-fit: unset;
+        height: 42vh;
+    }
+}
+
+/* text animation */

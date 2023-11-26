@@ -22,6 +22,7 @@
 			<th>ID</th>
 			<th>Product name</th>
 			<th>Stock_Quantity</th>
+            <th>Product Image</th>
 			<th>action</th>
 		</tr>
 	</thead>
@@ -36,21 +37,21 @@
          echo "invalid query : " .mysqli_error($connect);
         }
 
-        while($row = mysqli_fetch_assoc($result)){
-            echo "
+        while($row = mysqli_fetch_assoc($result)){ ?>
+           
             <tr>
-            <td>$row[id]</td>
-            <td>$row[name]</td>
-            <td>$row[Stock_Quantity]</td>
+            <td><?php echo $row['id']?></td>
+            <td><?php echo $row['name']?></td>
+            <td><?php echo $row['Stock_Quantity']?></td>
+            <td><img style="width:60px;" src="./dashimages/<?php echo $row['image']; ?>" alt='Product Image' ></td>
             <td>
-                <a class='btn btn-primary btn-sm' href='updateProducts.php?id=$row[id]' >Update</a>
-                <a class='btn btn-danger btn-sm' href='deleteProducts.php?id=$row[id]' >Delete</a>
+                <a class='btn btn-primary btn-sm' href='updateProducts.php?id=<?php echo $row['id']?> ' >Update</a>
+                <a class='btn btn-danger btn-sm' href='deleteProducts.php?id=<?php echo $row['id']?>' >Delete</a>
             </td>
-        </tr> 
-            ";
+            </tr> 
+           
 
-        }
-        ?>
+       <?php } ?>
        
     
         

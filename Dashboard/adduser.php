@@ -27,8 +27,9 @@ if (isset($_POST['submit'])) {
         if ($_POST['select'] == 'Shef'){
             $sql = "INSERT INTO shefs (name , email , password )" .
             "VALUES('$name','$email','$password')";
+            $result = mysqli_query($connect,$sql);
         }
-        $result = mysqli_query($connect, $sql);
+        // $result = mysqli_query($connect, $sql);
 
         if (!$result) {
             $errorMessage = "invalid query : " . mysqli_error($connect);

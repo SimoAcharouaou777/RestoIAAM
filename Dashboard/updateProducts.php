@@ -4,6 +4,7 @@
 $id ="";
 $Product_Name="";
 $Stock_Quantity="";
+$product_image="";
 $errorMessage="";
 $successeMessag="";
 
@@ -11,23 +12,29 @@ if(isset($_POST['submit'])){
     $id = $_GET['id'];
     $Product_Name =$_POST['Product_Name'];
     $Stock_Quantity =$_POST['Stock_Quantity'];
+    $product_image =$_FILES['product_image']['name']; // $_FILES is a super global that allows to stor information about the data sent to the server like files
+    $product_image_tmp_name=$_FILES['product_image']['tmp_name']; // tmp_name  : is the temperary name of the img in the server
+    $product_image_folder = __DIR__.'/dashimages/'.$product_image;
 
-   do{
-    if(empty($Product_Name) || empty($Stock_Quantity)){
-        $errorMessage="all the input fields are required";
-    }
-
-    $sql ="UPDATE products  SET name = '$Product_Name', Stock_Quantity ='$Stock_Quantity' WHERE id=$id";
-    $result = mysqli_query($connect,$sql);
-
-    if($result){
-        header("location:Products.php");
-        exit;
-    }else{
-        $errorMessage= "error ".mysqli_error($connect);
-    }
-
-   }while(false);
+    do {
+        if (empty($Product_Name) || empty($Stock_Quantity) || empty($product_image)) {
+            $errorMessage = "All the input fields are required";
+        } else {
+            if (move_uploaded_file($product_image_tmp_name, $product_image_folder)) {
+                $sql = "UPDATE products SET name = '$Product_Name', Stock_Quantity = '$Stock_Quantity', image ='$product_image' WHERE id=$id";
+                $result = mysqli_query($connect, $sql);
+                
+                if ($result) {
+                    header("location: Products.php");
+                    exit;
+                } else {
+                    $errorMessage = "Error: " . mysqli_error($connect);
+                }
+            } else {
+                $errorMessage = "Error uploading the file";
+            }
+        }
+    } while (false);
 
 }
    if(isset($_GET['id'])){
@@ -39,6 +46,7 @@ if(isset($_POST['submit'])){
 
     $Product_Name = $row["name"];
     $Stock_Quantity = $row["Stock_Quantity"];
+    $product_image = $row["image"];
 
 
    }
@@ -73,7 +81,7 @@ if(isset($_POST['submit'])){
 
         ?>
 
-        <form action="" method="post">
+        <form action="<?php $_SERVER['PHP_SELF']?>" method="post" enctype="multipart/form-data" >
          <div class="row mb-3">
             <label class="col-sm-3 col-form-label">Product Name</label>
             <div class="col-sm-6">
@@ -84,6 +92,12 @@ if(isset($_POST['submit'])){
             <label class="col-sm-3 col-form-label">Stock_Quantity</label>
             <div class="col-sm-6">
                 <input type="number" class="form-control" name="Stock_Quantity" value="<?php echo $Stock_Quantity; ?>">
+            </div>
+         </div>
+         <div class="row mb-3">
+            <label class="col-sm-3 col-form-label">Product image</label>
+            <div class="col-sm-6">
+                <input type="file" class="form-control" name="product_image" accept=" image/png, image/jpeg, image/jpg ">
             </div>
          </div>
          <?php

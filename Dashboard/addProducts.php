@@ -14,7 +14,7 @@ if(isset($_POST["submit"])){
     $product_image=$_FILES['product_image']['name'];
     $product_image_tmp_name =$_FILES['product_image']['tmp_name'];
     $product_image_folder = __DIR__.'/dashimages/'.$product_image;
-
+    
     do{
        if(empty($Product_Name) || empty($Stock_Quantity) || empty($product_image)){
         $errorMessage = "all the fieds are required";
@@ -87,7 +87,7 @@ if(isset($_POST["submit"])){
          <div class="row mb-3">
             <label class="col-sm-3 col-form-label">Product image</label>
             <div class="col-sm-6">
-                <input type="file" class="form-control" name="product_image" accept=" image/png, image/jpeg, image/jpg name = product_image">
+                <input type="file" class="form-control" name="product_image" accept=" image/png, image/jpeg, image/jpg ">
             </div>
          </div>
          <?php

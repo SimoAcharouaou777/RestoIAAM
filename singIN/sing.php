@@ -57,7 +57,8 @@ session_start();
         <!--the Sign up form -->
         <?php
 include ("../include/cnx.php");
-
+$errorMessage="";
+$successMessage="";
 if (isset($_POST['submit'])) {
     $username = $_POST['username'];
     $email = $_POST['email'];
@@ -66,12 +67,12 @@ if (isset($_POST['submit'])) {
     $sql = "SELECT * FROM users WHERE name = '$username' ";
     $result = mysqli_query($connect,$sql);
     if (mysqli_num_rows($result) != 0) {
-        echo "this email , username is already in use";
+        $errorMessage= "this email , username is already in use";
     } else {
         $sql = "INSERT INTO users (name , email , password ) VALUES('$username','$email','$password')";
         $result = mysqli_query($connect, $sql);
         if ($result) {
-            echo "the account have been created succusfully";
+            $successMessage= "the account have been created succusfully";
         } else {
             echo "error" . mysqli_error($connect);
         }
@@ -100,7 +101,14 @@ if (isset($_POST['submit'])) {
             <input type="password" placeholder="Password" name="password"/>
             <span class="msg-validation-signin">write a vailde Username</span>
           </div>
-
+           <?php
+          //  if(isset($_POST['submit'])){
+            // if(!empty($errorMessage)){
+              // echo $errorMessage;
+            //  }
+          //  }
+           
+           ?> 
           <input type="submit" class="btn" value="Sign up " name="submit" />
 
           <p class="social-text">Or Sign up with social platforms</p>

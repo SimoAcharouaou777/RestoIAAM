@@ -97,7 +97,7 @@ if(isset($_POST['submit'])){
          <div class="row mb-3">
             <label class="col-sm-3 col-form-label">Product image</label>
             <div class="col-sm-6">
-                <input type="file" class="form-control" name="product_image" accept=" image/png, image/jpeg, image/jpg ">
+                <input type="file" class="form-control" name="product_image" accept=" image/png, image/jpeg, image/jpg "value="<?php echo $product_image;?>">
             </div>
          </div>
          <?php

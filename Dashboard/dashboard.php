@@ -111,9 +111,24 @@ $shef = mysqli_query($connect,$sql);
 		</div>
 	</div>
 	<!-- end third section  -->
+     <!-- start forth section -->
+	 <div class="container mt-5">
+		<div class="row">
+			<div class="col-lg-6 col-md-12"><canvas id="myChart1"></canvas></div>
+			<div class="col-lg-6 col-md-12"><canvas id="myChart2"></canvas></div>
+		</div>
+	</div>
+	<!-- end forth  section  -->
+	<!-- start five  section  -->
+	<div class="container mt-5">
+		<div class="row mt-5">
+			<div class="col-lg-4 col-md-12"><canvas id="myChart3"></canvas></div>
+			<div class="col-lg-4 col-md-12"><canvas id="myChart4"></canvas></div>
+			<div class="col-lg-4 col-md-12"><canvas id="myChart5"></canvas></div>
+		</div>
+	</div>
+	<!-- end five  section  -->
 
-	
-   
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
 		crossorigin="anonymous"></script>

@@ -43,7 +43,7 @@
             <td><?php echo $row['id']?></td>
             <td><?php echo $row['name']?></td>
             <td><?php echo $row['Stock_Quantity']?></td>
-            <td><img style="width:60px;" src="./dashimages/<?php echo $row['image']; ?>" alt='Product Image' ></td>
+            <td><img style="width:50px;" src="./dashimages/<?php echo $row['image']; ?>" alt='Product Image' ></td>
             <td>
                 <a class='btn btn-primary btn-sm' href='updateProducts.php?id=<?php echo $row['id']?> ' >Update</a>
                 <a class='btn btn-danger btn-sm' href='deleteProducts.php?id=<?php echo $row['id']?>' >Delete</a>

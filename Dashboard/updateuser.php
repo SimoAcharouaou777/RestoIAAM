@@ -16,10 +16,9 @@ if (isset($_POST['submit'])) {
     // $password = $_POST['password'];
 
     //validate input
-    do{
+    
        if(empty($name) || empty($email) /*|| empty($password)*/ ){
         $errorMessage="are the fields are required";
-        break;
        }
         // Update the user information in the database
     $sql = "UPDATE users SET name='$name', email='$email'/* password='$password'*/ WHERE id=$id";
@@ -34,7 +33,7 @@ if (isset($_POST['submit'])) {
         echo "Error: " .mysqli_error($connect);
     }
 
-    }while(false);
+    
 
    
 }

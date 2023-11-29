@@ -1,3 +1,9 @@
+<?php
+
+session_start();
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,6 +22,7 @@
     <div class="forms-container">
       <div class="signin-signup">
         <!--the sign in form -->
+
         <form action="#" class="sign-in-form">
 
           <h2 class="title">Sign in</h2>
@@ -48,29 +55,53 @@
           </div>
         </form>
         <!--the Sign up form -->
-        <form action="#" class="sign-up-form"action="connect.php" method="post" >
+        <?php
+include ("../include/cnx.php");
+
+if (isset($_POST['submit'])) {
+    $username = $_POST['username'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    $sql = "SELECT * FROM users WHERE name = '$username' ";
+    $result = mysqli_query($connect,$sql);
+    if (mysqli_num_rows($result) != 0) {
+        echo "this email , username is already in use";
+    } else {
+        $sql = "INSERT INTO users (name , email , password ) VALUES('$username','$email','$password')";
+        $result = mysqli_query($connect, $sql);
+        if ($result) {
+            echo "the account have been created succusfully";
+        } else {
+            echo "error" . mysqli_error($connect);
+        }
+    }
+}
+
+?>
+        <form action="" class="sign-up-form" method="post" >
 
           <h2 class="title">Sign up</h2>
           <div class="input-field">
             <i class="fas fa-user" style="color: #ff822e"></i>
-            <input type="text" placeholder="Username" />
+            <input type="text" placeholder="Username" name="username"/>
             <span class="msg-validation-signin">write a vailde Username</span>
           </div>
 
           <div class="input-field">
             <i class="fas fa-envelope" style="color: #ff822e"></i>
-            <input type="email" placeholder="Email" />
+            <input type="email" placeholder="Email" name="email" />
             <span class="msg-validation-signin">write a vailde Email</span>
 
           </div>
 
           <div class="input-field">
             <i class="fas fa-lock" style="color: #ff822e"></i>
-            <input type="password" placeholder="Password" />
+            <input type="password" placeholder="Password" name="password"/>
             <span class="msg-validation-signin">write a vailde Username</span>
           </div>
 
-          <input type="submit" class="btn" value="Sign up" />
+          <input type="submit" class="btn" value="Sign up " name="submit" />
 
           <p class="social-text">Or Sign up with social platforms</p>
           <div class="social-media">

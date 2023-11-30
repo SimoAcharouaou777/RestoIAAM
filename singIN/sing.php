@@ -22,22 +22,45 @@ session_start();
     <div class="forms-container">
       <div class="signin-signup">
         <!--the sign in form -->
+        <?php
+include "../include/cnx.php";
 
-        <form action="#" class="sign-in-form">
+if (isset($_POST['submit-login'])) {
+    $username = $_POST['username-log'];
+    $password = $_POST['password-log'];
+
+    $sql = "SELECT * FROM users WHERE name='$username'";
+    $result = mysqli_query($connect, $sql);
+    $row = mysqli_fetch_assoc($result);
+
+    if (mysqli_num_rows($result) > 0) {
+        if ($row["password"] == $password) {
+            $successMessage = "counte created successfully";
+            header("location:../index.php");
+            exit;
+
+        }
+    } else {
+        $errorMessage = "user name or the password are incorect";
+    }
+}
+
+?>
+        <form action="" class="sign-in-form" method="post">
 
           <h2 class="title">Sign in</h2>
           <div class="input-field">
             <i class="fas fa-user" style="color: #ff822e"></i>
-            <input type="text" placeholder="Username" />
+            <input type="text" placeholder="Username" name="username-log" />
             <span class="msg-validation-signin">write a vailde Username</span>
           </div>
           <div class="input-field">
             <i class="fas fa-lock" style="color: #ff822e"></i>
-            <input type="password" placeholder="Password"/>
+            <input type="password" placeholder="Password" name="password-log"/>
             <span class="msg-validation-signin">write a vailde Password</span>
 
           </div>
-          <input type="submit" value="Login" class="btn solid" />
+          <input type="submit" value="Login" class="btn solid" name="submit-login" />
           <p class="social-text">Or Sign in with social platforms</p>
           <div class="social-media">
             <a href="#" class="social-icon">
@@ -56,27 +79,33 @@ session_start();
         </form>
         <!--the Sign up form -->
         <?php
-include ("../include/cnx.php");
-$errorMessage="";
-$successMessage="";
-if (isset($_POST['submit'])) {
+    include "../include/cnx.php";
+    $errorMessage = "";
+    $successMessage = "";
+    if (isset($_POST['submit'])) {
     $username = $_POST['username'];
     $email = $_POST['email'];
     $password = $_POST['password'];
-
-    $sql = "SELECT * FROM users WHERE name = '$username' ";
-    $result = mysqli_query($connect,$sql);
-    if (mysqli_num_rows($result) != 0) {
-        $errorMessage= "this email , username is already in use";
-    } else {
-        $sql = "INSERT INTO users (name , email , password ) VALUES('$username','$email','$password')";
-        $result = mysqli_query($connect, $sql);
-        if ($result) {
-            $successMessage= "the account have been created succusfully";
-        } else {
-            echo "error" . mysqli_error($connect);
-        }
+   
+    if(empty($username) || empty($email) || empty($password)){
+      $errorMessage="all the fields are requierd";
+    }else{
+      $sql = "SELECT * FROM users WHERE name = '$username' ";
+      $result = mysqli_query($connect, $sql);
+      if (mysqli_num_rows($result) != 0) {
+          $errorMessage = "this email , username is already in use";
+      } else {
+          $sql = "INSERT INTO users (name , email , password ) VALUES('$username','$email','$password')";
+          $result = mysqli_query($connect, $sql);
+          if ($result) {
+              $successMessage = "the account have been created succusfully";
+          } else {
+              echo "error" . mysqli_error($connect);
+          }
+      }
     }
+
+   
 }
 
 ?>
@@ -101,14 +130,15 @@ if (isset($_POST['submit'])) {
             <input type="password" placeholder="Password" name="password"/>
             <span class="msg-validation-signin">write a vailde Username</span>
           </div>
-           <?php
-          //  if(isset($_POST['submit'])){
-            // if(!empty($errorMessage)){
-              // echo $errorMessage;
-            //  }
-          //  }
-           
-           ?> 
+              <?php
+                if (isset($_POST['submit'])) {
+                    if (!empty($errorMessage)) {
+                        echo $errorMessage;
+                    }
+                }
+              ?>
+         
+
           <input type="submit" class="btn" value="Sign up " name="submit" />
 
           <p class="social-text">Or Sign up with social platforms</p>

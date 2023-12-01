@@ -79,33 +79,36 @@ if (isset($_POST['submit-login'])) {
         </form>
         <!--the Sign up form -->
         <?php
-    include "../include/cnx.php";
-    $errorMessage = "";
-    $successMessage = "";
-    if (isset($_POST['submit'])) {
+include "../include/cnx.php";
+$errorMessage = "";
+$successMessage = "";
+if (isset($_POST['submit'])) {
     $username = $_POST['username'];
     $email = $_POST['email'];
     $password = $_POST['password'];
-   
-    if(empty($username) || empty($email) || empty($password)){
-      $errorMessage="all the fields are requierd";
-    }else{
-      $sql = "SELECT * FROM users WHERE name = '$username' ";
-      $result = mysqli_query($connect, $sql);
-      if (mysqli_num_rows($result) != 0) {
-          $errorMessage = "this email , username is already in use";
-      } else {
-          $sql = "INSERT INTO users (name , email , password ) VALUES('$username','$email','$password')";
-          $result = mysqli_query($connect, $sql);
-          if ($result) {
-              $successMessage = "the account have been created succusfully";
-          } else {
-              echo "error" . mysqli_error($connect);
-          }
-      }
+    $user_role = $_POST['usertype'];
+
+    if (empty($username) || empty($email) || empty($password) || empty($user_role))  {
+        $errorMessage = "all the fields are requierd";
+    } else {
+        $sql = "SELECT * FROM users WHERE name = '$username' ";
+        $result = mysqli_query($connect, $sql);
+        if (mysqli_num_rows($result) != 0) {
+            $errorMessage = "this email , username is already in use";
+        } else {
+            $sql = "INSERT INTO users (name , email , password , user_role ) VALUES('$username','$email','$password','$usertype')";
+            $_SESSION["username"] = "$username";
+            $_SESSION["email"] = "$email";
+
+            $result = mysqli_query($connect, $sql);
+            if ($result) {
+                $successMessage = "the account have been created succusfully";
+            } else {
+                echo "error" . mysqli_error($connect);
+            }
+        }
     }
 
-   
 }
 
 ?>
@@ -130,14 +133,23 @@ if (isset($_POST['submit-login'])) {
             <input type="password" placeholder="Password" name="password"/>
             <span class="msg-validation-signin">write a vailde Username</span>
           </div>
-              <?php
-                if (isset($_POST['submit'])) {
-                    if (!empty($errorMessage)) {
-                        echo $errorMessage;
-                    }
-                }
-              ?>
-         
+
+          <div class="input-field">
+            <i class="fas fa-lock" style="color: #ff822e"></i>
+            <select class="form-select" aria-label="Default select example" name="user_role">
+                    <option selected style="color : #ff822e">Why are you here ? </option>
+                    <option value="shef" name="shef">job application</option>
+                    <option value="client" name="client">to make an order</option>
+            </select>
+          </div>
+                                <?php
+                  if (isset($_POST['submit'])) {
+                      if (!empty($errorMessage)) {
+                          echo $errorMessage;
+                      }
+                  }
+                  ?>
+
 
           <input type="submit" class="btn" value="Sign up " name="submit" />
 

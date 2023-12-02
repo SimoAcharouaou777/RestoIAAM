@@ -41,10 +41,13 @@ session_start();
                 <div class="card-body">
 
                   <?php  
+                  
                   include("../include/cnx.php");
+                  $id = $_SESSION['id'];
                         if(isset($_POST['submit'])){
-                            $name = $_SESSION['username'] ;
-                            $email = $_SESSION['email'];
+                            
+                            $name = $_POST['username'] ;
+                            $email = $_POST['email'];
                             $first_name = $_POST['first_name'];
                             $last_name = $_POST['last_name'];
                             $location = $_POST['location'];
@@ -55,12 +58,14 @@ session_start();
                                 "VALUES('$name','$email','$first_name','$last_name','$location','$phone_number','$birthday')";
 
                             }else{
-                                $sql = "UPDATE users SET name='$name', email='$email', first_name ='$first_name' , last_name ='$last_name' , location ='$location' , phone_number = '$phone_number' , birthday = '$birthday' WHERE username=$name";
+                                $sql = "UPDATE users SET name='$name', email='$email', first_name ='$first_name' , last_name ='$last_name' , location ='$location' , phone_number = '$phone_number' , birthday = '$birthday' WHERE id='$id'";
                                 $result = mysqli_query($connect,$sql);
                                 if(!$result){
                                     echo" error : " .mysqli_error($connect);
-                                } else{
-                                    $sql="SELECT * FROM users WHERE username=$name";
+                                }
+                            }
+                        }
+                        $sql="SELECT * FROM users WHERE id=$id";
                                     $result=mysqli_query($connect,$sql);
                                     $row = mysqli_fetch_assoc($result);
                                     $name = $row['name'];
@@ -70,10 +75,6 @@ session_start();
                                     $location = $row['location'];
                                     $phone_number = $row['phone_number'];
                                     $birthday = $row['birthday'];
-                                }
-                            }
-                        }
-                        
                         ?>
                     <form method="post" action="">
                        
@@ -106,7 +107,7 @@ session_start();
                         <!-- Form Group (email address)-->
                         <div class="mb-3">
                             <label class="small mb-1" for="inputEmailAddress">Email address</label>
-                            <input class="form-control" id="inputEmailAddress" type="email" placeholder="Enter your email address" name="email" value="<?php echo $_SESSION['email']; ?>">
+                            <input class="form-control" id="inputEmailAddress" type="email" placeholder="Enter your email address" name="email" value="<?php echo $email; ?>">
                         </div>
                         <!-- Form Row-->
                         <div class="row gx-3 mb-3">

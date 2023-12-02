@@ -1,6 +1,9 @@
 <?php
 
 session_start();
+if (isset($_SESSION['username'])) {
+  header("location:../index.php");
+}
 
 ?>
 
@@ -34,8 +37,11 @@ if (isset($_POST['submit-login'])) {
     $row = mysqli_fetch_assoc($result);
 
     if (mysqli_num_rows($result) > 0) {
-        if ($row["password"] == $password) {
-            $successMessage = "counte created successfully";
+        if ($row["password"] === $password) {
+            $_SESSION["username"] = $username;
+            $_SESSION["id"] = $row['id'];
+            $_SESSION["role"] = $row['user_role'];
+            $_SESSION["email"] = $row['email'];
             header("location:../index.php");
             exit;
 
@@ -96,10 +102,7 @@ if (isset($_POST['submit'])) {
         if (mysqli_num_rows($result) != 0) {
             $errorMessage = "this email , username is already in use";
         } else {
-            $sql = "INSERT INTO users (name , email , password , user_role ) VALUES('$username','$email','$password','$usertype')";
-            $_SESSION["username"] = "$username";
-            $_SESSION["email"] = "$email";
-
+            $sql = "INSERT INTO users (name , email , password , user_role ) VALUES('$username','$email','$password','$user_role')";
             $result = mysqli_query($connect, $sql);
             if ($result) {
                 $successMessage = "the account have been created succusfully";
@@ -136,10 +139,10 @@ if (isset($_POST['submit'])) {
 
           <div class="input-field">
             <i class="fas fa-lock" style="color: #ff822e"></i>
-            <select class="form-select" aria-label="Default select example" name="user_role">
+            <select class="form-select" aria-label="Default select example" name="usertype">
                     <option selected style="color : #ff822e">Why are you here ? </option>
-                    <option value="shef" name="shef">job application</option>
-                    <option value="client" name="client">to make an order</option>
+                    <option value="shef">job application</option>
+                    <option value="client">to make an order</option>
             </select>
           </div>
                                 <?php

@@ -1,3 +1,6 @@
+<?php 
+ session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -40,9 +43,15 @@
                   <li class="nav-item  me-5">
                      <a class="nav-link  " aria-current="page" href="#"><i class="fa-solid fa-magnifying-glass"></i></a>
                   </li>
+                  <?php if(isset($_SESSION['username'])) { ?>
                   <li class="nav-item me-5 ">
-                     <a class="nav-link loginBtn" aria-current="page" href="../singIN/sing.php">Login</a>
+                     <a class="nav-link loginBtn" aria-current="page" href="../singIN/logout.php">logout</a>
                   </li>
+                  <?php } else{ ?>
+                     <li class="nav-item me-5 ">
+                     <a class="nav-link loginBtn" aria-current="page" href="../singIN/sing.php">login</a>
+                  <?php } ?>
+
                </ul>
             </div>
          </div>

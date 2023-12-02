@@ -1,3 +1,12 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['username'])) {
+    header("location:../singIN/sing.php");
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,25 +37,31 @@
                 <div class="collapse navbar-collapse " id="navbarNavDropdown">
                     <ul class="navbar-nav me-5">
                         <li class="nav-item me-5">
-                            <a class="nav-link hoverAfter " aria-current="page" href="../index.html">Home</a>
+                            <a class="nav-link hoverAfter " aria-current="page" href="../index.php">Home</a>
                         </li>
                         <li class="nav-item me-5 ">
-                            <a class="nav-link hoverAfter " aria-current="page" href="../Service/Service.html">Services
+                            <a class="nav-link hoverAfter " aria-current="page" href="../Service/Service.php">Services
                             </a>
                         </li>
                         <li class="nav-item me-5">
-                            <a class="nav-link hoverAfter " aria-current="page" href="../Contact/Contact.html">Contact</a>
+                            <a class="nav-link hoverAfter " aria-current="page" href="../Contact/Contact.php">Contact</a>
                         </li>
                         <li class="nav-item me-5">
-                            <a class="nav-link hoverAfter " aria-current="page" href="../AboutUs/About.html">About</a>
+                            <a class="nav-link hoverAfter " aria-current="page" href="../AboutUs/About.php">About</a>
                         </li>
                         <li class="nav-item  me-5">
                             <a class="nav-link  " aria-current="page" href="#"><i
                                     class="fa-solid fa-magnifying-glass"></i></a>
                         </li>
-                        <li class="nav-item me-5 ">
-                            <a class="nav-link loginBtn" aria-current="page" href="../singIN/sing.html">Login</a>
-                        </li>
+
+                        <?php if (isset($_SESSION['username'])) {?>
+                  <li class="nav-item me-5 ">
+                     <a class="nav-link loginBtn" aria-current="page" href="../singIN/logout.php">logout</a>
+                  </li>
+                  <?php } else {?>
+                     <li class="nav-item me-5 ">
+                     <a class="nav-link loginBtn" aria-current="page" href="../singIN/sing.php">login</a>
+                  <?php }?>
                     </ul>
                 </div>
             </div>

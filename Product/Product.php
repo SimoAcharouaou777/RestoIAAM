@@ -137,7 +137,7 @@
                 </div>
                 <br>
                 <div class="buttonOrder" style="text-align: center;">
-                    <a href="OrderTracking/order.html"> <button type="button" class="btn"
+                    <a href="OrderTracking/order.php"> <button type="button" class="btn"
                             style="border: 2px solid #ff6305; border-radius: 10px; padding: 10px; ">
                             Buy Now <i class='bx bx-cart-add' style='color:#ff6305'></i>
                         </button></a>

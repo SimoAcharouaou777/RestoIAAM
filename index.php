@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -48,9 +51,23 @@
 							<a class="nav-link  " aria-current="page" href="#"><i
 									class="fa-solid fa-magnifying-glass"></i></a>
 						</li>
+						<?php if (isset($_SESSION['username'])) {?>
+							<li class="nav-item me-5 ">
+							<a class="nav-link loginBtn" aria-current="page" href="singIN/logout.php">Logout</a>
+                        <?php if ($_SESSION['role'] == "client") {?>
+							<li class="nav-item me-5 ">
+							<a class="nav-link loginBtn" aria-current="page" href="vue/profile.php?id=<?=$_SESSION['id']?>">profile</a>
+						</li>
+						<?php }?>
+						<?php if ($_SESSION['role'] == "admin") {?>
+							<li class="nav-item me-5 ">
+							<a class="nav-link loginBtn" aria-current="page" href="Dashboard/dashboard.php?id=<?=$_SESSION['id']?>">Dashboard</a>
+							<?php }?>
+		   				<?php } else {?>
 						<li class="nav-item me-5 ">
 							<a class="nav-link loginBtn" aria-current="page" href="singIN/sing.php">Login</a>
 						</li>
+						<?php }?>
 					</ul>
 				</div>
 			</div>
@@ -108,14 +125,14 @@
 				<h1>Burger</h1>
 				<p>Delicious and spicy </p>
 				<span>$15.00</span>
-				<small><a href="Product/Product.html">+</a></small>
+				<small><a href="Product/Product.php">+</a></small>
 			</div>
 			<div class="col-lg-3 col-md-6 col-sm-12  my-5">
 				<img src="images/menu1.png" alt="" srcset="">
 				<h1>Burger</h1>
 				<p>Delicious and spicy </p>
 				<span>$15.00</span>
-				<small><a href="Product/Product.html">+</a></small>
+				<small><a href="Product/Product.php">+</a></small>
 
 			</div>
 			<div class="col-lg-3 col-md-6 col-sm-12   my-5">
@@ -123,7 +140,7 @@
 				<h1>Burger</h1>
 				<p>Delicious and spicy </p>
 				<span>$15.00</span>
-				<small><a href="Product/Product.html">+</a></small>
+				<small><a href="Product/Product.php">+</a></small>
 
 			</div>
 			<div class="col-lg-3 col-md-6 col-sm-12 my-5">
@@ -131,7 +148,7 @@
 				<h1>Burger</h1>
 				<p>Delicious and spicy </p>
 				<span>$15.00</span>
-				<small><a href="Product/Product.html">+</a></small>
+				<small><a href="Product/Product.php">+</a></small>
 
 			</div>
 
@@ -373,4 +390,3 @@
 
 </html>
 
-			

@@ -6,8 +6,7 @@ $sql = "select count(*) as ordercount from orders";
 $order = mysqli_query($connect,$sql);
 $sql ="select count(*) as totalproduct from products";
 $product = mysqli_query($connect,$sql);
-$sql ="select count(*) as shefscount from shefs";
-$shef = mysqli_query($connect,$sql);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -104,7 +103,7 @@ $shef = mysqli_query($connect,$sql);
 			<div class="col-lg-3 col-md-6 col-sm-12 mt-5 card">
 				<span class="title">Shefs </span>
 				<small>+1.64 %</small>
-				<p><?= mysqli_fetch_assoc($shef)['shefscount']?></p>
+				<p></p>
 				<span class="bottom">View More</span>
 				<i class="fa-solid fa-wallet"></i>
 			</div>

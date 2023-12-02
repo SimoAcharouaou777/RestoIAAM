@@ -33,8 +33,7 @@ if(isset($_POST["submit"])){
 
        move_uploaded_file($product_image_tmp_name , $product_image_folder);
 
-    //    $Product_Name ="";
-    //    $Stock_Quantity = "";
+
 
        // go back to the Products page
        header("location:Products.php");

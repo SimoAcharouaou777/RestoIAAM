@@ -1,6 +1,45 @@
 <?php
 session_start();
-?>
+
+                  
+include("../include/cnx.php");
+$id = $_SESSION['id'];
+      if(isset($_POST['submit'])){
+          $image = $_FILES['image']['name'];
+          $image_tmp_name = $_FILES['image']['tmp_name'];
+          $image_folder =  __DIR__.'/profile_images/'.$image;
+          move_uploaded_file($image_tmp_name , $image_folder);
+          $name = $_POST['username'] ;
+          $email = $_POST['email'];
+          $first_name = $_POST['first_name'];
+          $last_name = $_POST['last_name'];
+          $location = $_POST['location'];
+          $phone_number = $_POST['phone_number'];
+          $birthday = $_POST['birthday'];
+          if(empty($name) || empty($email) || empty($first_name) || empty($last_name) || empty($location) || empty($phone_number) || empty($birthday) || empty($image)){
+              $sql = "INSERT INTO users (name , email , first_name , last_name , location , phone_number , birthday , image )" .
+              "VALUES('$name','$email','$first_name','$last_name','$location','$phone_number','$birthday','$image')";
+
+          }else{
+              $sql = "UPDATE users SET name='$name', email='$email', first_name ='$first_name' , last_name ='$last_name' , location ='$location' , phone_number = '$phone_number' , birthday = '$birthday', image = '$image' WHERE id='$id'";
+              $result = mysqli_query($connect,$sql);
+              if(!$result){
+                  echo" error : " .mysqli_error($connect);
+              }
+          }
+      }
+      $sql="SELECT * FROM users WHERE id=$id";
+                  $result=mysqli_query($connect,$sql);
+                  $row = mysqli_fetch_assoc($result);
+                  $image = isset($row['image']) ? $row['image'] : null;
+                  $name = $row['name'];
+                  $email = $row['email'];
+                  $first_name = $row['first_name'];
+                  $last_name = $row['last_name'];
+                  $location = $row['location'];
+                  $phone_number = $row['phone_number'];
+                  $birthday = $row['birthday'];
+      ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,15 +61,16 @@ session_start();
     <div class="row">
         <div class="col-xl-4">
             <!-- Profile picture card-->
+        <form method="post" action="" enctype="multipart/form-data">
             <div class="card mb-4 mb-xl-0">
                 <div class="card-header">Profile Picture</div>
                 <div class="card-body text-center">
                     <!-- Profile picture image-->
-                    <img class="img-account-profile rounded-circle mb-2" src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="">
+                    <img class="img-account-profile rounded-circle mb-2" src="<?php echo 'profile_images/' . $image; ?>" alt="">
                     <!-- Profile picture help block-->
                     <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
                     <!-- Profile picture upload button-->
-                    <input class="btn btn-primary" type="file">
+                    <input class="btn btn-primary" type="file" accept ="image/png, image/jpeg, image/jpg" name="image" >
                 </div>
             </div>
         </div>
@@ -40,43 +80,8 @@ session_start();
                 <div class="card-header">Account Details</div>
                 <div class="card-body">
 
-                  <?php  
-                  
-                  include("../include/cnx.php");
-                  $id = $_SESSION['id'];
-                        if(isset($_POST['submit'])){
-                            
-                            $name = $_POST['username'] ;
-                            $email = $_POST['email'];
-                            $first_name = $_POST['first_name'];
-                            $last_name = $_POST['last_name'];
-                            $location = $_POST['location'];
-                            $phone_number = $_POST['phone_number'];
-                            $birthday = $_POST['birthday'];
-                            if(empty($name) || empty($email) || empty($first_name) || empty($last_name) || empty($location) || empty($phone_number) || empty($birthday)){
-                                $sql = "INSERT INTO users (name , email , first_name , last_name , location , phone_number , birthday )" .
-                                "VALUES('$name','$email','$first_name','$last_name','$location','$phone_number','$birthday')";
-
-                            }else{
-                                $sql = "UPDATE users SET name='$name', email='$email', first_name ='$first_name' , last_name ='$last_name' , location ='$location' , phone_number = '$phone_number' , birthday = '$birthday' WHERE id='$id'";
-                                $result = mysqli_query($connect,$sql);
-                                if(!$result){
-                                    echo" error : " .mysqli_error($connect);
-                                }
-                            }
-                        }
-                        $sql="SELECT * FROM users WHERE id=$id";
-                                    $result=mysqli_query($connect,$sql);
-                                    $row = mysqli_fetch_assoc($result);
-                                    $name = $row['name'];
-                                    $email = $row['email'];
-                                    $first_name = $row['first_name'];
-                                    $last_name = $row['last_name'];
-                                    $location = $row['location'];
-                                    $phone_number = $row['phone_number'];
-                                    $birthday = $row['birthday'];
-                        ?>
-                    <form method="post" action="">
+                 
+                    
                        
                         <!-- Form Group (username)-->
                         <div class="mb-3">

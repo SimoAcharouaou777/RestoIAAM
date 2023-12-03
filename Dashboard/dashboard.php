@@ -1,9 +1,12 @@
 <?php
+session_start();
 include("../include/cnx.php");
-$sql = "select count(*) as userscount from users";
+$sql = "select count(*) as userscount from users where user_role = 'client'";
 $user = mysqli_query($connect,$sql);
 $sql = "select count(*) as ordercount from orders";
 $order = mysqli_query($connect,$sql);
+$sql = "select count(*) as shefs from users where user_role='shef'";
+$shefs = mysqli_query($connect,$sql);
 $sql ="select count(*) as totalproduct from products";
 $product = mysqli_query($connect,$sql);
 
@@ -56,8 +59,10 @@ $product = mysqli_query($connect,$sql);
 		<div class="offcanvas-body mt-5">
 			<ul>
 				<li><i class="fa fa-dashboard me-3" ></i> Dashboard</li>
+				<?php if(!isset($_SESSION['role']) == 'shef'){ ?>
 				<li><a href="Users.php" style="text-decoration : none"><i class="fa fa-store me-3"></i> Users</li></a>
 				<li><a href="Shefs.php" style="text-decoration : none"><i class="fa fa-message me-3"></i> Shefs</li></a>
+				<?php } ?>
 				<li><a href="Products.php" style="text-decoration : none"><i class="fa-solid fa-check me-3"></i> Product </li></a>
 				<li><i class="fa fa-phone me-3"></i> Help</li>
 				<li><i class="fa-solid fa-gear me-3"></i> Setting</li>
@@ -103,7 +108,7 @@ $product = mysqli_query($connect,$sql);
 			<div class="col-lg-3 col-md-6 col-sm-12 mt-5 card">
 				<span class="title">Shefs </span>
 				<small>+1.64 %</small>
-				<p></p>
+				<p><?= mysqli_fetch_assoc($shefs)['shefs']?></p>
 				<span class="bottom">View More</span>
 				<i class="fa-solid fa-wallet"></i>
 			</div>

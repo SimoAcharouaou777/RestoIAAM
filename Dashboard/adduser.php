@@ -5,6 +5,7 @@ include("../include/cnx.php");
 $name = "";
 $email = "";
 $password = "";
+$user_role="";
 $errorMessage = "";
 $successeMessage = "";
 
@@ -12,36 +13,22 @@ if (isset($_POST['submit'])) {
     $name = $_POST['name'];
     $email = $_POST['email'];
     $password = $_POST['password'];
+    $user_role = $_POST['user_role'];
 
-    do {
-        if (empty($name) || empty($email) || empty($password) ) {
+    
+        if (empty($name) || empty($email) || empty($password) || empty($user_role)) {
             $errorMessage = "all the fiels are required";
-            break;
-        }
-
-        // add new client to data base
-        if ($_POST['select'] == 'Costumer' ){
-        $sql = "INSERT INTO users (name , email , password )" .
-            "VALUES('$name','$email','$password')";
-        }
-        if ($_POST['select'] == 'Shef'){
-            $sql = "INSERT INTO shefs (name , email , password )" .
-            "VALUES('$name','$email','$password')";
+        }else{
+            $sql="INSERT INTO users (name , email , password , user_role) VALUES ('$name','$email','$password','$user_role')";
             $result = mysqli_query($connect,$sql);
+            if (!$result) {
+                $errorMessage = "invalid query : " . mysqli_error($connect);
+            }
+            $successeMessage = "Clients added successfully";
+            header("location:Users.php");
+            exit;
         }
-        // $result = mysqli_query($connect, $sql);
-
-        if (!$result) {
-            $errorMessage = "invalid query : " . mysqli_error($connect);
-            break;
-        }
-        $successeMessage = "Clients added successfully";
-        //Go back to the dashboard
-        header("location:Users.php");
-        exit;
-
-
-    } while (false);
+  
 }
 
 ?>
@@ -96,9 +83,10 @@ if (isset($_POST['submit'])) {
             <div class="row mb-3">
                 <label class="col-sm-3 col-form-label">role</label>
                 <div class="col-sm-6">
-                    <select name="select" class="form-control">
-                        <option value="Costumer" >Costumer</option>
+                    <select name="user_role" class="form-control">
+                        <option value="client" >client</option>
                         <option value="Shef">Shef</option>
+                        <option value ="admin">admin</option>
                     </select>
                 </div>
             </div>

@@ -31,7 +31,7 @@
         <?php
         include("../include/cnx.php");
 
-        $sql ="select * from shefs" ;
+        $sql ="SELECT * FROM users WHERE user_role = 'shef'" ;
         $result = mysqli_query($connect,$sql);
         if(!$result){
             die("error : ".mysqli_error($connect));
@@ -42,7 +42,7 @@
             <td>$row[id]</td>
             <td>$row[name]</td>
             <td>$row[email]</td>
-            <td>$row[PASSWORD]</td>
+            <td>$row[password]</td>
             <td>
                 <a class='btn btn-primary btn-sm' href='updateShefs.php?id=$row[id]'>Update</a>
                 <a class='btn btn-danger btn-sm' href='deleteShefs.php?id=$row[id]'>Delete</a>

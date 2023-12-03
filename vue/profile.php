@@ -54,8 +54,10 @@ $id = $_SESSION['id'];
 <div class="container-xl px-4 mt-4">
     <!-- Account page navigation-->
     <nav class="nav nav-borders">
-        <a class="nav-link active ms-0" href="" target="__blank">Profile</a>
         <a class="nav-link" href="../index.php" target="__blank">Go back</a>
+        <a class="nav-link active ms-0" href="" target="__blank">Profile</a>
+        <a class="nav-link" href="security.php" target="__blank">Security</a>
+    </nav>
     </nav>
     <hr class="mt-0 mb-4">
     <div class="row">

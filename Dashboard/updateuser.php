@@ -1,27 +1,24 @@
 <?php
 include '../include/cnx.php';
 
-// Initialize variables
 $id = "";
 $name = "";
 $email = "";
-// $password = "";
+
 $errorMessage = "";
 
-// Check if the form is submitted
+
 if (isset($_POST['submit'])) {
     $id = $_GET['id'];
     $name = $_POST['name'];
     $email = $_POST['email'];
-    // $password = $_POST['password'];
-
-    //validate input
+    $user_role = $_POST['user_role'];
     
-       if(empty($name) || empty($email) /*|| empty($password)*/ ){
+    
+       if(empty($name) || empty($email) || empty($user_role)  ){
         $errorMessage="are the fields are required";
        }
-        // Update the user information in the database
-    $sql = "UPDATE users SET name='$name', email='$email'/* password='$password'*/ WHERE id=$id";
+    $sql = "UPDATE users SET name='$name', email='$email', user_role = '$user_role' WHERE id=$id";
     $result = mysqli_query($connect,$sql);
 
     if ($result) {
@@ -90,10 +87,15 @@ if (isset($_GET['id'])) {
         </div>
     </div>
     <div class="row mb-3">
-        <!-- <label class="col-sm-3 col-form-label">password</label>
-        <div class="col-sm-6">
-            <input type="password" class="form-control" name="password" value="">
-        </div> -->
+                <label class="col-sm-3 col-form-label">role</label>
+                <div class="col-sm-6">
+                    <select name="user_role" class="form-control">
+                        <option value="client" >client</option>
+                        <option value="Shef">Shef</option>
+                        <option value ="admin">admin</option>
+                    </select>
+                </div>
+            </div>
         <div class="row mb-3">
             <div class="offset-sm-3 col-sm-3 d-grid">
                 <button type="submit" name="submit" class="btn btn-primary">submit</button>

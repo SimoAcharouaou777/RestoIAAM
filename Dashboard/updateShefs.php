@@ -3,36 +3,31 @@ include("../include/cnx.php");
 
 $name ="";
 $email="";
+$user_role ="";
 $id = "";
 $errorMessage="";
 if(isset($_POST["submit"])){
      $id = $_GET['id'];
      $name = $_POST['name'];
      $email = $_POST['email'];
+     $user_role = $_POST['user_role'];
      
-     //validate input
-     do{
-        if(empty($name) || empty($email)){
+        if(empty($name) || empty($email) || empty($user_role)){
             $errorMessage="all the inputs are required";
          }
-         
-         $sql = "UPDATE shefs  SET name = '$name' , email ='$email' WHERE id=$id";
+         $sql = "UPDATE users  SET name = '$name' , email ='$email' , user_role = '$user_role' WHERE id=$id";
          $result = mysqli_query($connect,$sql);
         if(!$result){
             echo"invalid query : " .mysqli_error($connect);
         } else{
             header("location:Shefs.php");
         }
-     }while(false);
      
 }
-
-//show existing data on the form table
-
     if(isset($_GET['id'])){
         $id = $_GET['id'];
 
-     $sql = "SELECT * FROM shefs WHERE id=$id";
+     $sql = "SELECT * FROM users WHERE id=$id";
      $result =mysqli_query($connect,$sql);
      if(!$result){
         echo"invalid query :" .mysqli_error($connect);
@@ -84,10 +79,15 @@ if(isset($_POST["submit"])){
         </div>
     </div>
     <div class="row mb-3">
-        <!-- <label class="col-sm-3 col-form-label">password</label>
-        <div class="col-sm-6">
-            <input type="password" class="form-control" name="password" value="">
-        </div> -->
+                <label class="col-sm-3 col-form-label">role</label>
+                <div class="col-sm-6">
+                    <select name="user_role" class="form-control">
+                        <option value="client" >client</option>
+                        <option value="Shef">Shef</option>
+                        <option value ="admin">admin</option>
+                    </select>
+                </div>
+            </div>
         <div class="row mb-3">
             <div class="offset-sm-3 col-sm-3 d-grid">
                 <button type="submit" name="submit" class="btn btn-primary">submit</button>

@@ -59,7 +59,7 @@ session_start();
 							<a class="nav-link loginBtn" aria-current="page" href="vue/profile.php?id=<?=$_SESSION['id']?>">profile</a>
 						</li>
 						<?php }?>
-						<?php if ($_SESSION['role'] == "admin") {?>
+						<?php if ($_SESSION['role'] == "admin" || $_SESSION['role'] == "shef") {?>
 							<li class="nav-item me-5 ">
 							<a class="nav-link loginBtn" aria-current="page" href="Dashboard/dashboard.php?id=<?=$_SESSION['id']?>">Dashboard</a>
 							<?php }?>

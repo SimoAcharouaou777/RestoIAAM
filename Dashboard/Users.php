@@ -38,7 +38,7 @@
 
         //read all rows in the table
 
-        $sql = "SELECT * FROM users";
+        $sql = "SELECT * FROM users WHERE user_role = 'client'";
 
         //check the connection
         $result = mysqli_query($connect,$sql); 

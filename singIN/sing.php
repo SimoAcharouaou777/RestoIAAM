@@ -1,6 +1,6 @@
 <?php
-
-session_start();
+       include("../include/cnx.php");
+       session_start();
 
 
 ?>
@@ -25,8 +25,6 @@ session_start();
       <div class="signin-signup">
         <!--the sign in form -->
         <?php
-       
-       include("../include/cnx.php");
 $errorMessagelog="";
 if (isset($_POST['submit_login'])) {
 
@@ -54,7 +52,7 @@ if (isset($_POST['submit_login'])) {
 }
 ?>
 
-        <form action="" class="sign-in-form" method="post">
+        <form action="" class="sign-in-form" method="post" id="sign-in-form">
           <?php
         if(!empty($errorMessagelog)){
             echo '<div style="color:red">';
@@ -95,38 +93,40 @@ if (isset($_POST['submit_login'])) {
         </form>
         <!--the Sign up form -->
         <?php
-include "../include/cnx.php";
 $errorMessage = "";
 $successMessage = "";
-if (isset($_POST['submit'])) {
-    $username = $_POST['username'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    $hashedpassword = password_hash($password,PASSWORD_DEFAULT);
-    $user_role = $_POST['usertype'];
+// if (isset($_POST['submit'])) {
+//     $username = $_POST['username'];
+//     $email = $_POST['email'];
+//     $password = $_POST['password'];
+//     $hashedpassword = password_hash($password,PASSWORD_DEFAULT);
+//     $user_role = $_POST['usertype'];
 
-    if (empty($username) || empty($email) || empty($password) || empty($user_role)) {
-        $errorMessage = "all the fields are requierd";
-    } else {
-        $sql = "SELECT * FROM users WHERE name = '$username' ";
-        $result = mysqli_query($connect, $sql);
-        if (mysqli_num_rows($result) != 0) {
-            $errorMessage = "this email , username is already in use";
-        } else {
-            $sql = "INSERT INTO users (name , email , password , user_role ) VALUES('$username','$email','$hashedpassword','$user_role')";
-            $result = mysqli_query($connect, $sql);
-            if ($result) {
-                $successMessage = "the account have been created succusfully";
-            } else {
-                echo "error" . mysqli_error($connect);
-            }
-        }
-    }
+//     if (empty($username) || empty($email) || empty($password) || empty($user_role)) {
+//         $errorMessage = "all the fields are requierd";
+//         echo $errorMessage;
+//     } else {
+//         $sql = "SELECT * FROM users WHERE name = '$username' ";
+//         $result = mysqli_query($connect, $sql);
+//         if (mysqli_num_rows($result) != 0) {
+//             $errorMessage = "this email , username is already in use";
+//             echo $errorMessage;
+//         } else {
+//             $sql = "INSERT INTO users (name , email , password , user_role ) VALUES('$username','$email','$hashedpassword','$user_role')";
+//             $result = mysqli_query($connect, $sql);
+//             if ($result) {
+//                 $successMessage = "the account have been created succusfully";
+//                 echo $successMessage;
+//             } else {
+//                 echo "error" . mysqli_error($connect);
+//             }
+//         }
+//     }
 
-}
+// }
 
 ?>
-        <form action="" class="sign-up-form" method="post" >
+        <form action="" class="sign-up-form" method="post" id="sign-up-form" >
 
           <h2 class="title">Sign up</h2>
           <div class="input-field">
@@ -137,14 +137,14 @@ if (isset($_POST['submit'])) {
 
           <div class="input-field">
             <i class="fas fa-envelope" style="color: #ff822e"></i>
-            <input type="email" placeholder="Email" name="email" />
+            <input type="email" id='email_' placeholder="Email" name="email" />
             <span class="msg-validation-signin">write a vailde Email</span>
 
           </div>
 
           <div class="input-field">
             <i class="fas fa-lock" style="color: #ff822e"></i>
-            <input type="password" placeholder="Password" name="password"/>
+            <input type="password" placeholder="Password"  name="password"/>
             <span class="msg-validation-signin">write a vailde Username</span>
           </div>
 
@@ -156,17 +156,8 @@ if (isset($_POST['submit'])) {
                     <option value="client">to make an order</option>
             </select>
           </div>
-                                <?php
-if (isset($_POST['submit'])) {
-    if (!empty($errorMessage)) {
-        echo $errorMessage;
-    }
-}
-?>
-
-
-          <input type="submit" class="btn" value="Sign up " name="submit" />
-
+          <p id='signupError'></p>
+          <input type="submit" class="btn" value="Sign up " name="submit"  />
           <p class="social-text">Or Sign up with social platforms</p>
           <div class="social-media">
             <a href="#" class="social-icon">
@@ -216,6 +207,23 @@ if (isset($_POST['submit'])) {
   </div>
 
   <script src="sing.js"></script>
+  <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('sign-up-form').addEventListener('submit', function (event) {
+        event.preventDefault();
+        var formData = new FormData(this);
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'test.php', true); 
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                document.getElementById('signupError').innerHTML = xhr.responseText;
+            }
+        };
+        xhr.send(formData);
+    });
+});
+
+</script>
 
 </body>
 

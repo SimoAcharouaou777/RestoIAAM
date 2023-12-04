@@ -57,24 +57,33 @@ $product = mysqli_query($connect,$sql);
 			<i class="fa-solid fa-xmark " data-bs-dismiss="offcanvas" aria-label="Close"></i>
 		</div>
 		<div class="offcanvas-body mt-5">
-			<ul>
-				<li><i class="fa fa-dashboard me-3" ></i> Dashboard</li>
-				<?php if(!isset($_SESSION['role']) == 'shef'){ ?>
-				<li><a href="Users.php" style="text-decoration : none"><i class="fa fa-store me-3"></i> Users</li></a>
-				<li><a href="Shefs.php" style="text-decoration : none"><i class="fa fa-message me-3"></i> Shefs</li></a>
-				<?php } ?>
-				<li><a href="Products.php" style="text-decoration : none"><i class="fa-solid fa-check me-3"></i> Product </li></a>
-				<li><i class="fa fa-phone me-3"></i> Help</li>
-				<li><i class="fa-solid fa-gear me-3"></i> Setting</li>
-			</ul>
-		</div>
+    <ul>
+        <li><i class="fa fa-dashboard me-3" ></i> Dashboard</li>
+		
+        <?php if($_SESSION['role'] == 'admin'){ ?>
+            <li><a href="Users.php" style="text-decoration : none"><i class="fa fa-store me-3"></i> Users</a></li>
+            <li><a href="Shefs.php" style="text-decoration : none"><i class="fa fa-message me-3"></i> Shefs</a></li>
+            <li><a href="Products.php" style="text-decoration : none"><i class="fa-solid fa-check me-3"></i> Product </a></li>
+            <li><i class="fa fa-phone me-3"></i> Help</li>
+            <li><i class="fa-solid fa-gear me-3"></i> Setting</li>
+        <?php } else { ?>
+            <?php if($_SESSION['role'] == 'shef') {?>
+                <li><a href="access.php" style="text-decoration : none"><i class="fa fa-store me-3"></i> Users</a></li>
+                <li><a href="access.php" style="text-decoration : none"><i class="fa fa-message me-3"></i> Shefs</a></li>
+                <li><a href="Products.php" style="text-decoration : none"><i class="fa-solid fa-check me-3"></i> Product </a></li>
+                <li><i class="fa fa-phone me-3"></i> Help</li>
+                <li><i class="fa-solid fa-gear me-3"></i> Setting</li>
+            <?php } ?>
+        <?php } ?>
+    </ul>
+</div>
 	</div>
 	<!-- end first section  -->
 	<!-- start second section  -->
 	<div class="container second-section ">
 		<div class=" row px-4">
 			<div class="col-lg-5 col-md-6 col-sm-12">
-				<h1>Good Morning, Mohamed !</h1>
+				<h1>Good Morning, <?php echo $_SESSION['username'] ; ?>!</h1>
 				<p>Here's what's happening with your store today.</p>
 			</div>
 			

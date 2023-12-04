@@ -35,7 +35,7 @@ session_start();
 				<div class="collapse navbar-collapse " id="navbarNavDropdown">
 					<ul class="navbar-nav me-5">
 						<li class="nav-item me-5">
-							<a class="nav-link hoverAfter " aria-current="page" href="#">Home</a>
+							<a class="nav-link hoverAfter " aria-current="page" href="index.php">Home</a>
 						</li>
 						<li class="nav-item me-5 ">
 							<a class="nav-link hoverAfter " aria-current="page" href="Service/Service.php">Services

@@ -1,9 +1,7 @@
 <?php
 
 session_start();
-if (isset($_SESSION['username'])) {
-  header("location:../index.php");
-}
+
 
 ?>
 
@@ -18,6 +16,7 @@ if (isset($_SESSION['username'])) {
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
     integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
 </head>
 
 <body>
@@ -26,47 +25,58 @@ if (isset($_SESSION['username'])) {
       <div class="signin-signup">
         <!--the sign in form -->
         <?php
-include "../include/cnx.php";
+       
+       include("../include/cnx.php");
+$errorMessagelog="";
+if (isset($_POST['submit_login'])) {
 
-if (isset($_POST['submit-login'])) {
-    $username = $_POST['username-log'];
-    $password = $_POST['password-log'];
-
+  $username = $_POST['username_log'];
+    $password_log = $_POST['password_log'];
     $sql = "SELECT * FROM users WHERE name='$username'";
     $result = mysqli_query($connect, $sql);
     $row = mysqli_fetch_assoc($result);
-
+    
     if (mysqli_num_rows($result) > 0) {
-        if ($row["password"] === $password) {
+        if (password_verify($password_log  , $row['password'])) {
             $_SESSION["username"] = $username;
             $_SESSION["id"] = $row['id'];
             $_SESSION["role"] = $row['user_role'];
             $_SESSION["email"] = $row['email'];
-            header("location:../index.php");
+            $_SESSION["password"] = $row['password'];
+            header("location:../index.php" );
             exit;
-
+        }else{
+          $errorMessagelog="the password doesnt match!!!";
         }
     } else {
-        $errorMessage = "user name or the password are incorect";
+        $errorMessagelog = "Username or password are incorrect";
     }
 }
-
 ?>
-        <form action="" class="sign-in-form" method="post">
 
+        <form action="" class="sign-in-form" method="post">
+          <?php
+        if(!empty($errorMessagelog)){
+            echo '<div style="color:red">';
+            echo $errorMessagelog;
+            echo '</div>';
+            }
+        ?> 
           <h2 class="title">Sign in</h2>
           <div class="input-field">
             <i class="fas fa-user" style="color: #ff822e"></i>
-            <input type="text" placeholder="Username" name="username-log" />
+            <input type="text" placeholder="Username" name="username_log" />
             <span class="msg-validation-signin">write a vailde Username</span>
           </div>
           <div class="input-field">
             <i class="fas fa-lock" style="color: #ff822e"></i>
-            <input type="password" placeholder="Password" name="password-log"/>
+            <input type="password" placeholder="Password" name="password_log"/>
             <span class="msg-validation-signin">write a vailde Password</span>
 
           </div>
-          <input type="submit" value="Login" class="btn solid" name="submit-login" />
+
+          <button type="submit" value="Login" class="btn solid" name="submit_login" >login</button>
+
           <p class="social-text">Or Sign in with social platforms</p>
           <div class="social-media">
             <a href="#" class="social-icon">
@@ -92,9 +102,10 @@ if (isset($_POST['submit'])) {
     $username = $_POST['username'];
     $email = $_POST['email'];
     $password = $_POST['password'];
+    $hashedpassword = password_hash($password,PASSWORD_DEFAULT);
     $user_role = $_POST['usertype'];
 
-    if (empty($username) || empty($email) || empty($password) || empty($user_role))  {
+    if (empty($username) || empty($email) || empty($password) || empty($user_role)) {
         $errorMessage = "all the fields are requierd";
     } else {
         $sql = "SELECT * FROM users WHERE name = '$username' ";
@@ -102,7 +113,7 @@ if (isset($_POST['submit'])) {
         if (mysqli_num_rows($result) != 0) {
             $errorMessage = "this email , username is already in use";
         } else {
-            $sql = "INSERT INTO users (name , email , password , user_role ) VALUES('$username','$email','$password','$user_role')";
+            $sql = "INSERT INTO users (name , email , password , user_role ) VALUES('$username','$email','$hashedpassword','$user_role')";
             $result = mysqli_query($connect, $sql);
             if ($result) {
                 $successMessage = "the account have been created succusfully";
@@ -146,12 +157,12 @@ if (isset($_POST['submit'])) {
             </select>
           </div>
                                 <?php
-                  if (isset($_POST['submit'])) {
-                      if (!empty($errorMessage)) {
-                          echo $errorMessage;
-                      }
-                  }
-                  ?>
+if (isset($_POST['submit'])) {
+    if (!empty($errorMessage)) {
+        echo $errorMessage;
+    }
+}
+?>
 
 
           <input type="submit" class="btn" value="Sign up " name="submit" />

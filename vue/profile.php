@@ -56,7 +56,7 @@ $id = $_SESSION['id'];
     <nav class="nav nav-borders">
         <a class="nav-link" href="../index.php" target="__blank">Go back</a>
         <a class="nav-link active ms-0" href="" target="__blank">Profile</a>
-        <a class="nav-link" href="security.php" target="__blank">Security</a>
+        <a class="nav-link" href="security.php?id=<?php echo $id?>" target="__blank" >Security</a>
     </nav>
     </nav>
     <hr class="mt-0 mb-4">
@@ -68,7 +68,7 @@ $id = $_SESSION['id'];
                 <div class="card-header">Profile Picture</div>
                 <div class="card-body text-center">
                     <!-- Profile picture image-->
-                    <img class="img-account-profile rounded-circle mb-2" src="<?php echo 'profile_images/' . $image; ?>" alt="">
+                    <img style="width:200px;" class="img-account-profile rounded-circle mb-2"  src="<?php echo 'profile_images/' . $image; ?>" alt="">
                     <!-- Profile picture help block-->
                     <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
                     <!-- Profile picture upload button-->

@@ -12,6 +12,7 @@ $username = $_POST['username_log'];
   
   
   if (mysqli_num_rows($result) > 0) {
+    $row = mysqli_fetch_assoc($result);
    
       if (password_verify($password_log  , $row['password'])) {
           $_SESSION["username"] = $username;

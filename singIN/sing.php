@@ -1,8 +1,7 @@
 <?php
        include("../include/cnx.php");
-       session_start();
-
-
+       include "../controller/signin.php";
+      
 ?>
 
 <!DOCTYPE html>
@@ -24,43 +23,44 @@
     <div class="forms-container">
       <div class="signin-signup">
         <!--the sign in form -->
-        <?php
-$errorMessagelog="";
-if (isset($_POST['submit_login'])) {
+        <!-- <?php
+     
+// if (isset($_POST['submit_login'])) {
+  // $errorMessagelog="";
+  // $username = $_POST['username_log'];
+  //   $password_log = $_POST['password_log'];
 
-  $username = $_POST['username_log'];
-    $password_log = $_POST['password_log'];
-    $sql = "SELECT * FROM users WHERE name= ?";
+  //   $stmt = $connect->prepare("SELECT * FROM users WHERE name = ?");
 
-    $stmt = mysqli_prepare($connect, $sql);
-    if($stmt){
-      mysqli_stmt_bind_param ($stmt, "s", $username );
-      mysqli_stmt_execute($stmt);
-      $result = mysqli_stmt_get_result($stmt);
-      $row = mysqli_fetch_assoc($result);
-      mysqli_stmt_close($stmt);
-    }
+
+  //   if($stmt){
+    //   mysqli_stmt_bind_param ($stmt, "s", $username );
+    //   mysqli_stmt_execute($stmt);
+    //   $result = mysqli_stmt_get_result($stmt);
+    //   $row = mysqli_fetch_assoc($result);
+    //   mysqli_stmt_close($stmt);
+    // }
     // $row = mysqli_fetch_assoc($result);
     
-    if (mysqli_num_rows($result) > 0) {
-        if (password_verify($password_log  , $row['password'])) {
-            $_SESSION["username"] = $username;
-            $_SESSION["id"] = $row['id'];
-            $_SESSION["role"] = $row['user_role'];
-            $_SESSION["email"] = $row['email'];
-            $_SESSION["password"] = $row['password'];
-            header("location:../index.php" );
-            exit;
-        }else{
-          $errorMessagelog="the password doesnt match!!!";
-        }
-    } else {
-        $errorMessagelog = "Username or password are incorrect";
-    }
-}
-?>
+    // if (mysqli_num_rows($result) > 0) {
+    //     if (password_verify($password_log  , $row['password'])) {
+    //         $_SESSION["username"] = $username;
+    //         $_SESSION["id"] = $row['id'];
+    //         $_SESSION["role"] = $row['user_role'];
+    //         $_SESSION["email"] = $row['email'];
+    //         $_SESSION["password"] = $row['password'];
+    //         header("location:../index.php" );
+    //         exit;
+    //     }else{
+    //       $errorMessagelog="the password doesnt match!!!";
+    //     }
+    // } else {
+        // $errorMessagelog = "Username or password are incorrect";
+    // }
+// }
+?> -->
 
-        <form action="" class="sign-in-form" method="post" id="sign-in-form">
+        <form action="../controller/signin.php" class="sign-in-form" method="post" id="sign-in-form">
           <?php
         if(!empty($errorMessagelog)){
             echo '<div style="color:red">';

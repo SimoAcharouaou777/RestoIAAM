@@ -41,17 +41,28 @@ include("../include/cnx.php");
                             $error[]="all the fields are required ";
                         }
                         else{
-                            $sql="SELECT * FROM users WHERE id=$id";
-                            $result=mysqli_query($connect,$sql);
-                            $row = mysqli_fetch_assoc($result);
+                            $sql="SELECT * FROM users WHERE id= ?";
+                            $stmt = mysqli_prepare($connect,$sql);
+                            if($stmt){
+                                mysqli_stmt_bind_param($stmt,"i", $id);
+                                mysqli_stmt_execute($stmt);
+                                $result = mysqli_stmt_get_result($stmt);
+                                $row = mysqli_fetch_assoc($result);
+                            }
                            if(password_verify($current_password,$row['password'])  && $new_password == $confirm_password ){
-                        $sql= "UPDATE users SET password ='$hashpassword' WHERE id = '$id' ";
-                           $result=mysqli_query($connect,$sql);
-                           if($result){
-                            $succesMessage= "password updated succsefully ";
-                           }else{
-                            $error[]="error : ".mysqli_error($connect);
-                           }
+                        $sql= "UPDATE users SET password = ? WHERE id = ? ";
+                        $stmt= mysqli_prepare($connect,$sql);
+                        if($stmt){
+                            mysqli_stmt_bind_param($stmt, "si" ,$hashpassword,$id);
+                            $result = mysqli_stmt_execute($stmt);
+                            if($result){
+                                $succesMessage= "password updated succsefully ";
+                               }else{
+                                $error[]="error : ".mysqli_stmt_error($stmt);
+                               }
+                               mysqli_stmt_close($stmt);
+                        }
+                           
                         }else{
                             $error[]="check your passwords !!";
                            

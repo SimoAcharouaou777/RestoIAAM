@@ -11,15 +11,27 @@ session_start();
         $errorMessage = "all the fields are requierd";
         echo $errorMessage;
     } else {
-        $sql = "SELECT * FROM users WHERE name = '$username' ";
-        $result = mysqli_query($connect, $sql);
+        $sql = "SELECT * FROM users WHERE name = ? ";
+        $stmt= mysqli_prepare($connect,$sql);
+        if($stmt){
+         mysqli_stmt_bind_param($stmt , "s" , $username);
+         mysqli_stmt_execute($stmt);
+         $result= mysqli_stmt_get_result($stmt);
+         $row = mysqli_fetch_assoc($result);
+         mysqli_stmt_close($stmt);
+        }
+
         if (mysqli_num_rows($result) != 0) {
             $errorMessage = "this email , username is already in use";
             echo $errorMessage;
         } else {
-            $sql = "INSERT INTO users (name , email , password , user_role ) VALUES('$username','$email','$hashedpassword','$user_role')";
-            $result = mysqli_query($connect, $sql);
-            if ($result) {
+            $sql = "INSERT INTO users (name , email , password , user_role ) VALUES(?,?,?,?)";
+            $stmt = mysqli_prepare($connect,$sql);
+            if($stmt){
+                mysqli_stmt_bind_param($stmt , "ssss" , $username,$email,$hashedpassword,$user_role);
+                mysqli_stmt_execute($stmt);
+                mysqli_stmt_close($stmt);
+                
                 $successMessage = "the account have been created succusfully";
                 echo $successMessage;
             } else {

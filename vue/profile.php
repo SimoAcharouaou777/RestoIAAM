@@ -18,27 +18,50 @@ $id = $_SESSION['id'];
           $birthday = $_POST['birthday'];
           if(empty($name) || empty($email) || empty($first_name) || empty($last_name) || empty($location) || empty($phone_number) || empty($birthday) || empty($image)){
               $sql = "INSERT INTO users (name , email , first_name , last_name , location , phone_number , birthday , image )" .
-              "VALUES('$name','$email','$first_name','$last_name','$location','$phone_number','$birthday','$image')";
+              "VALUES(?,?,?,?,?,?,?,?)";
+              $stmt = mysqli_prepare($connect,$sql);
+              if($stmt){
+                mysqli_stmt_bind_param($stmt,"ssssssss",$name,$email,$first_name,$last_name,$location,$phone_number,$birthday,$image);
+                mysqli_stmt_execute($stmt);
+                mysqli_stmt_close($stmt);
+              }
 
           }else{
-              $sql = "UPDATE users SET name='$name', email='$email', first_name ='$first_name' , last_name ='$last_name' , location ='$location' , phone_number = '$phone_number' , birthday = '$birthday', image = '$image' WHERE id='$id'";
-              $result = mysqli_query($connect,$sql);
+              $sql = "UPDATE users SET name= ?, email= ?, first_name = ? , last_name = ? , location = ? , phone_number = ? , birthday = ?, image = ? WHERE id=?";
+              $stmt = mysqli_prepare($connect,$sql);
+              if($stmt){
+                mysqli_stmt_bind_param($stmt,"ssssssssi",$name,$email,$first_name,$last_name,$location,$phone_number,$birthday,$image,$id);
+                $result =mysqli_stmt_execute($stmt);
+                mysqli_stmt_close($stmt);
+              }
               if(!$result){
                   echo" error : " .mysqli_error($connect);
               }
           }
       }
-      $sql="SELECT * FROM users WHERE id=$id";
-                  $result=mysqli_query($connect,$sql);
-                  $row = mysqli_fetch_assoc($result);
-                  $image = isset($row['image']) ? $row['image'] : null;
-                  $name = $row['name'];
-                  $email = $row['email'];
-                  $first_name = $row['first_name'];
-                  $last_name = $row['last_name'];
-                  $location = $row['location'];
-                  $phone_number = $row['phone_number'];
-                  $birthday = $row['birthday'];
+                  $sql="SELECT * FROM users WHERE id= ?";
+                  $stmt = mysqli_prepare($connect,$sql);
+                  if($stmt){
+                    mysqli_stmt_bind_param($stmt,"i",$id);
+                    mysqli_stmt_execute($stmt);
+                    $result = mysqli_stmt_get_result($stmt);
+                    if($row = mysqli_fetch_assoc($result)){
+                        $image = isset($row['image']) ? $row['image'] : null;
+                        $name = $row['name'];
+                        $email = $row['email'];
+                        $first_name = $row['first_name'];
+                        $last_name = $row['last_name'];
+                        $location = $row['location'];
+                        $phone_number = $row['phone_number'];
+                        $birthday = $row['birthday'];
+                    }else{
+                        echo"user not found";
+                    }
+                    mysqli_stmt_close($stmt);
+                  }else {
+                    echo "Error in prepared statement: " . mysqli_error($connect);
+                }
+                 
       ?>
 <!DOCTYPE html>
 <html lang="en">

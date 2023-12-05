@@ -123,7 +123,7 @@ $successMessage = "";
 //         }
 //     }
 
-// }
+// }   
 
 ?>
         <form action="" class="sign-up-form" method="post" id="sign-up-form" >
@@ -212,14 +212,14 @@ $successMessage = "";
     document.getElementById('sign-up-form').addEventListener('submit', function (event) {
         event.preventDefault();
         var formData = new FormData(this);
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', 'test.php', true); 
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                document.getElementById('signupError').innerHTML = xhr.responseText;
+        var myrequest = new XMLHttpRequest();
+        myrequest.open('POST', 'test.php', true); 
+        myrequest.onreadystatechange = function () {
+            if (myrequest.readyState === 4 && myrequest.status === 200) {
+                document.getElementById('signupError').innerHTML = myrequest.responseText;
             }
         };
-        xhr.send(formData);
+        myrequest.send(formData);
     });
 });
 

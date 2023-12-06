@@ -2,23 +2,19 @@
 include '../include/cnx.php';
 
 $id = "";
-$name = "";
-$email = "";
 
 $errorMessage = "";
 
 
 if (isset($_POST['submit'])) {
     $id = $_GET['id'];
-    $name = $_POST['name'];
-    $email = $_POST['email'];
     $user_role = $_POST['user_role'];
     
     
-       if(empty($name) || empty($email) || empty($user_role)  ){
+       if( empty($user_role)){
         $errorMessage="are the fields are required";
        }
-    $sql = "UPDATE users SET name='$name', email='$email', user_role = '$user_role' WHERE id=$id";
+    $sql = "UPDATE users SET user_role = '$user_role' WHERE id=$id";
     $result = mysqli_query($connect,$sql);
 
     if ($result) {
@@ -35,19 +31,6 @@ if (isset($_POST['submit'])) {
    
 }
 
-// Fetch existing data from the database if the form is not submitted
-if (isset($_GET['id'])) {
-    $id = $_GET['id'];
-
-    // Fetch existing data from the database
-    $sql = "SELECT * FROM users WHERE id = $id";
-    $result = mysqli_query($connect,$sql);
-    $row =mysqli_fetch_assoc($result);
-
-    $name = $row["name"];
-    $email = $row["email"];
- 
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -74,18 +57,6 @@ if (isset($_GET['id'])) {
         ?>
 
 <form action="" method="post">
-    <div class="row mb-3">
-        <label class="col-sm-3 col-form-label">name</label>
-        <div class="col-sm-6">
-            <input type="text" class="form-control" name="name" value="<?php echo $name; ?>">
-        </div>
-    </div>
-    <div class="row mb-3">
-        <label class="col-sm-3 col-form-label">email</label>
-        <div class="col-sm-6">
-            <input type="email" class="form-control" name="email" value="<?php echo $email; ?>">
-        </div>
-    </div>
     <div class="row mb-3">
                 <label class="col-sm-3 col-form-label">role</label>
                 <div class="col-sm-6">

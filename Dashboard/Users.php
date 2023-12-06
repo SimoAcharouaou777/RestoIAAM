@@ -28,49 +28,55 @@
 			<th>ID</th>
 			<th>Username</th>
 			<th>email</th>
-			<th>password</th>
-			<th>action</th>
+			<th>first name</th>
+			<th>last name</th>
+			<th>location</th>
+			<th>phone number</th>
+			<th>birthday</th>
+			<th>image</th>
+			<th>image</th>
+
+
+
+
 		</tr>
 	</thead>
     <tbody>
-        <?php
-        include("../include/cnx.php");
+    <?php
+include("../include/cnx.php");
 
-        //read all rows in the table
+// read all rows in the table
+$sql = "SELECT * FROM users WHERE user_role = 'client'";
 
-        $sql = "SELECT * FROM users WHERE user_role = 'client'";
+// check the connection
+$result = mysqli_query($connect, $sql);
 
-        //check the connection
-        $result = mysqli_query($connect,$sql); 
+if (!$result) {
+    die("Invalid query " . mysqli_error($connect));
+}
 
-        if(!$result){
-            die("invalid query ".mysqli_error($connect));
-        }
-        
-        // read data of each row 
-        while($row = mysqli_fetch_assoc($result)){
-            echo "<tr>
-            <td>$row[id]</td>
-            <td>$row[name]</td>
-            <td>$row[email]</td>
-            <td>$row[password]</td>
-            <td>
-                <a class='btn btn-primary btn-sm' href='updateuser.php?id=$row[id]'>Update</a>
-                <a class='btn btn-danger btn-sm' href='deleteuser.php?id=$row[id]'>Delete</a>
-            </td>
-        </tr> ";
-        }
+// read data of each row 
+while ($row = mysqli_fetch_assoc($result)) { ?>
+    <tr>
+        <td><?php echo $row['id']; ?></td>
+        <td><?php echo $row['name']; ?></td>
+        <td><?php echo $row['email']; ?></td>
+        <td><?php echo $row['first_name']; ?></td>
+        <td><?php echo $row['last_name']; ?></td>
+        <td><?php echo $row['location']; ?></td>
+        <td><?php echo $row['phone_number']; ?></td>
+        <td><?php echo $row['birthday']; ?></td>
+        <td><img style="width:50px;" src="../vue/profile_images/<?php echo $row['image']; ?>" alt='Product Image'></td>
+        <td>
+            <a class='btn btn-primary btn-sm' href='updateuser.php?id=<?php echo $row['id']; ?>'>Update</a>
+            <a class='btn btn-danger btn-sm' href='deleteuser.php?id=<?php echo $row['id']; ?>'>Delete</a>
+        </td>
+    </tr>
+<?php } ?>
 
+</tbody>
+</table>
 
-
-
-
-
-
-        ?>
-        
-    </tbody>
-    </table>
 	<!-- end of data table -->
     
  </body>

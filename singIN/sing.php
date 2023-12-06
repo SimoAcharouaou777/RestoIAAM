@@ -23,43 +23,7 @@
     <div class="forms-container">
       <div class="signin-signup">
         <!--the sign in form -->
-        <!-- <?php
-     
-// if (isset($_POST['submit_login'])) {
-  // $errorMessagelog="";
-  // $username = $_POST['username_log'];
-  //   $password_log = $_POST['password_log'];
-
-  //   $stmt = $connect->prepare("SELECT * FROM users WHERE name = ?");
-
-
-  //   if($stmt){
-    //   mysqli_stmt_bind_param ($stmt, "s", $username );
-    //   mysqli_stmt_execute($stmt);
-    //   $result = mysqli_stmt_get_result($stmt);
-    //   $row = mysqli_fetch_assoc($result);
-    //   mysqli_stmt_close($stmt);
-    // }
-    // $row = mysqli_fetch_assoc($result);
-    
-    // if (mysqli_num_rows($result) > 0) {
-    //     if (password_verify($password_log  , $row['password'])) {
-    //         $_SESSION["username"] = $username;
-    //         $_SESSION["id"] = $row['id'];
-    //         $_SESSION["role"] = $row['user_role'];
-    //         $_SESSION["email"] = $row['email'];
-    //         $_SESSION["password"] = $row['password'];
-    //         header("location:../index.php" );
-    //         exit;
-    //     }else{
-    //       $errorMessagelog="the password doesnt match!!!";
-    //     }
-    // } else {
-        // $errorMessagelog = "Username or password are incorrect";
-    // }
-// }
-?> -->
-
+        
         <form action="../controller/signin.php" class="sign-in-form" method="post" id="sign-in-form">
           <?php
         if(!empty($errorMessagelog)){
@@ -103,35 +67,6 @@
         <?php
 $errorMessage = "";
 $successMessage = "";
-// if (isset($_POST['submit'])) {
-//     $username = $_POST['username'];
-//     $email = $_POST['email'];
-//     $password = $_POST['password'];
-//     $hashedpassword = password_hash($password,PASSWORD_DEFAULT);
-//     $user_role = $_POST['usertype'];
-
-//     if (empty($username) || empty($email) || empty($password) || empty($user_role)) {
-//         $errorMessage = "all the fields are requierd";
-//         echo $errorMessage;
-//     } else {
-//         $sql = "SELECT * FROM users WHERE name = '$username' ";
-//         $result = mysqli_query($connect, $sql);
-//         if (mysqli_num_rows($result) != 0) {
-//             $errorMessage = "this email , username is already in use";
-//             echo $errorMessage;
-//         } else {
-//             $sql = "INSERT INTO users (name , email , password , user_role ) VALUES('$username','$email','$hashedpassword','$user_role')";
-//             $result = mysqli_query($connect, $sql);
-//             if ($result) {
-//                 $successMessage = "the account have been created succusfully";
-//                 echo $successMessage;
-//             } else {
-//                 echo "error" . mysqli_error($connect);
-//             }
-//         }
-//     }
-
-// }   
 
 ?>
         <form action="" class="sign-up-form" method="post" id="sign-up-form" >

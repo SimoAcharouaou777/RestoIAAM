@@ -1,4 +1,5 @@
 <?php
+include "./include/cnx.Php";
 session_start();
 ?>
 <!DOCTYPE html>
@@ -48,8 +49,20 @@ session_start();
 							<a class="nav-link hoverAfter " aria-current="page" href="AboutUs/About.php">About</a>
 						</li>
 						<li class="nav-item  me-5">
-							<a class="nav-link  " aria-current="page" href="#"><i
-									class="fa-solid fa-magnifying-glass"></i></a>
+							<!-- here is  the chearching input   fosjfosdjfsdjfjsfjhfjfoijfidjjj -->
+							<nav class="navbar bg-body-tertiary">
+							<div class="container-fluid">
+								<form class="d-flex">
+									<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="search_input" oninput="livesearch(); displaysearch();">
+									<button class="btn btn-outline-success" type="submit" id="search_submit">Search</button>
+								</form>
+							</div>
+							<div class="live-search-result" id="live-search" style="position: absolute; display: none ; top: 100%; left: 0; width: 70%; background-color: #fff; box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);">
+								<ul class="search-result" id="searchResult" style="list-style: none; padding: 10px; margin: 0;">
+								</ul>
+							</div>
+								</nav>
+
 						</li>
 						<?php if (isset($_SESSION['username'])) {?>
 							<li class="nav-item me-5 ">
@@ -118,41 +131,30 @@ session_start();
 	<!-- start third section  -->
 	<div class="third-section container ">
 		<h1 class="menuTitle m-5">Browse Our Menu</h1>
+           <?php
+$sql = "SELECT * FROM products";
+$stmt = mysqli_prepare($connect, $sql);
+if ($stmt) {
+    mysqli_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    while ($row = mysqli_fetch_assoc($result)) {
+        echo "
+						<div class='row mx-auto d-flex justify-content-center'>
+							<div class='col-lg-3 col-md-6 col-sm-12 my-5'>
+							<img style='width:50px;' src='./Dashboard/dashimages/{$row['image']}' alt='Product Image'>
+								<h1>$row[name]</h1>
+								<span>$15.00</span>
+								<small><a href='Product/Product.php'>+</a></small>
+							</div>
+						</div>
+						";
+    }
+    mysqli_stmt_close($stmt);
+} else {
+    echo "Error: " . mysqli_error($connect);
+}
 
-		<div class="row  mx-auto d-flex justify-content-center">
-			<div class="col-lg-3 col-md-6 col-sm-12  my-5">
-				<img src="images/menu2.png" alt="" srcset="">
-				<h1>Burger</h1>
-				<p>Delicious and spicy </p>
-				<span>$15.00</span>
-				<small><a href="Product/Product.php">+</a></small>
-			</div>
-			<div class="col-lg-3 col-md-6 col-sm-12  my-5">
-				<img src="images/menu1.png" alt="" srcset="">
-				<h1>Burger</h1>
-				<p>Delicious and spicy </p>
-				<span>$15.00</span>
-				<small><a href="Product/Product.php">+</a></small>
-
-			</div>
-			<div class="col-lg-3 col-md-6 col-sm-12   my-5">
-				<img src="images/menu2.png" alt="" srcset="">
-				<h1>Burger</h1>
-				<p>Delicious and spicy </p>
-				<span>$15.00</span>
-				<small><a href="Product/Product.php">+</a></small>
-
-			</div>
-			<div class="col-lg-3 col-md-6 col-sm-12 my-5">
-				<img src="images/menu2.png" alt="" srcset="">
-				<h1>Burger</h1>
-				<p>Delicious and spicy </p>
-				<span>$15.00</span>
-				<small><a href="Product/Product.php">+</a></small>
-
-			</div>
-
-		</div>
+?>
 	</div>
 	<!-- end third section  -->
 	<!-- start forth section  -->
@@ -386,6 +388,58 @@ session_start();
 		integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
 		crossorigin="anonymous"></script>
 	<script src="index.js"></script>
+    <script>
+		function livesearch() {
+    var searchInput = document.getElementById('search_input').value;
+
+    if (searchInput !== '') {
+        var request = new XMLHttpRequest();
+
+        request.onreadystatechange = function() {
+            if (request.readyState == 4 && request.status == 200) {
+                var results = JSON.parse(request.responseText);
+
+                // Clear previous results
+                document.getElementById('searchResult').innerHTML = '';
+
+                if (results.length > 0) {
+                    results.forEach(function(result) {
+                        // Create an <li> element for each result
+                        var listItem = document.createElement('li');
+                        listItem.textContent = result;
+
+                        // Append the <li> to the <ul>
+                        document.getElementById('searchResult').appendChild(listItem);
+                    });
+                } else {
+                    // Display a message when no results are found
+                    var noResultsItem = document.createElement('li');
+                    noResultsItem.textContent = 'No results found';
+                    document.getElementById('searchResult').appendChild(noResultsItem);
+                }
+            }
+        };
+
+        request.open('GET', 'search.php?q=' + encodeURIComponent(searchInput), true);
+        request.send();
+    } else {
+        // Clear the result list when the search input is empty
+        document.getElementById('searchResult').innerHTML = '';
+    }
+}
+			function displaysearch() {
+			var searchInput = document.getElementById('search_input').value;
+			var livesearch = document.getElementById('live-search');
+
+			if (searchInput.trim() !== '') {
+				livesearch.style.display = 'block';
+			} else {
+				livesearch.style.display = 'none';
+			}
+			}
+
+
+	</script>
 </body>
 
 </html>

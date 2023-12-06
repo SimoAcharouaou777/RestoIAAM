@@ -12,3 +12,6 @@ setTimeout(() => {
   let spiner = document.querySelector(".spiner");
   spiner.style.display = "none";
 }, 800);
+
+
+

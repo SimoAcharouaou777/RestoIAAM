@@ -1,5 +1,8 @@
 <?php
 session_start();
+if($_SESSION["role"] == 'client'){
+	header("location:../index.Php");
+}
 include("../include/cnx.php");
 $sql = "select count(*) as userscount from users where user_role = 'client'";
 $user = mysqli_query($connect,$sql);

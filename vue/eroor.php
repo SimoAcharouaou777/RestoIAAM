@@ -14,10 +14,10 @@
             <div class="pull-right" style="margin-top:10px;">
                 <div class="col-md-10 col-md-offset-1 pull-right">
                     <img class="img-error" src="https://bootdey.com/img/Content/fdfadfadsfadoh.png">
-                    <h2>404 Not Found</h2>
+                    <h2>sir jib la carte</h2>
                     <p>Sorry, an error has occured, Requested page not found!</p>
                     <div class="error-actions">
-                        <a href="#" class="btn btn-primary btn-lg">
+                        <a href="../index.php" class="btn btn-primary btn-lg">
                             <span class="glyphicon glyphicon-arrow-left"></span>
                             Back Home 
                         </a>

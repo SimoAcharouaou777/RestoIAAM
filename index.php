@@ -397,6 +397,8 @@ if ($stmt) {
 			request.onreadystatechange = function(){
 				if(request.readyState == 4 && request.status == 200){
 					document.getElementById('searchResult').innerHTML = request.responseText;
+				}else{
+					document.getElementById('searchResult').innerHTML = '<li>No results</li>';
 				}
 			}
                request.open("GET","search.php?q=" +searchInput,true);

@@ -1,4 +1,12 @@
+<?php
 
+session_start();
+if($_SESSION["role"] == 'client' || $_SESSION["role"] == 'shef'){
+    header("location:../vue/eroor.php");
+}
+
+
+?>
  
  
  <!DOCTYPE html>

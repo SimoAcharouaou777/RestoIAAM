@@ -1,3 +1,12 @@
+<?php
+
+session_start();
+if($_SESSION["role"] == 'client'){
+    header("location:../vue/eroor.php");
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

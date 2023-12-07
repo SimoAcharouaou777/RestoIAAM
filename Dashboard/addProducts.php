@@ -1,4 +1,8 @@
 <?php
+session_start();
+if($_SESSION["role"] == 'client'){
+    header("location:../index.php");
+}
 include("../include/cnx.php");
 
 //Variables that will stock our data

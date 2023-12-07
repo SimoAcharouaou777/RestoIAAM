@@ -1,5 +1,8 @@
 <?php
-
+session_start();
+if($_SESSION["role"] == 'client'){
+	header("location:../vue/eroor.php");
+}
 include("../include/cnx.php");
 
 if (isset($_GET["id"])) {

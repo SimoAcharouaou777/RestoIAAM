@@ -5,7 +5,7 @@ session_start();
 
 if (isset($_POST['submit_login'])) {
 
-$username = $_POST['username_log'];
+  $username = $_POST['username_log'];
   $password_log = $_POST['password_log'];
 
   $result = login($username);

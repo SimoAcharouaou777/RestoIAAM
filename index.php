@@ -388,57 +388,35 @@ if ($stmt) {
 		integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
 		crossorigin="anonymous"></script>
 	<script src="index.js"></script>
+
     <script>
-		function livesearch() {
-    var searchInput = document.getElementById('search_input').value;
+           function livesearch(){
+           var searchInput = document.getElementById('search_input').value;
+		   if(searchInput !== ''){
+			 request = new XMLHttpRequest();
+			request.onreadystatechange = function(){
+				if(request.readyState == 4 && request.status == 200){
+					document.getElementById('searchResult').innerHTML = request.responseText;
+				}
+			}
+               request.open("GET","search.php?q=" +searchInput,true);
+			   request.send();
+		   }
+		   }
 
-    if (searchInput !== '') {
-        var request = new XMLHttpRequest();
 
-        request.onreadystatechange = function() {
-            if (request.readyState == 4 && request.status == 200) {
-                var results = JSON.parse(request.responseText);
+	</script>
 
-                // Clear previous results
-                document.getElementById('searchResult').innerHTML = '';
-
-                if (results.length > 0) {
-                    results.forEach(function(result) {
-                        // Create an <li> element for each result
-                        var listItem = document.createElement('li');
-                        listItem.textContent = result;
-
-                        // Append the <li> to the <ul>
-                        document.getElementById('searchResult').appendChild(listItem);
-                    });
-                } else {
-                    // Display a message when no results are found
-                    var noResultsItem = document.createElement('li');
-                    noResultsItem.textContent = 'No results found';
-                    document.getElementById('searchResult').appendChild(noResultsItem);
-                }
-            }
-        };
-
-        request.open('GET', 'search.php?q=' + encodeURIComponent(searchInput), true);
-        request.send();
-    } else {
-        // Clear the result list when the search input is empty
-        document.getElementById('searchResult').innerHTML = '';
-    }
-}
+    <script>
 			function displaysearch() {
 			var searchInput = document.getElementById('search_input').value;
 			var livesearch = document.getElementById('live-search');
-
 			if (searchInput.trim() !== '') {
 				livesearch.style.display = 'block';
 			} else {
 				livesearch.style.display = 'none';
 			}
 			}
-
-
 	</script>
 </body>
 

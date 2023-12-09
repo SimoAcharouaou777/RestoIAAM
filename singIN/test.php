@@ -20,7 +20,7 @@ session_start();
          $row = mysqli_fetch_assoc($result);
          mysqli_stmt_close($stmt);
         }
-
+        
         if (mysqli_num_rows($result) != 0) {
             $errorMessage = "this email , username is already in use";
             echo $errorMessage;

@@ -1,8 +1,9 @@
 <?php
 session_start();
-if($_SESSION["role"] == 'client' || $_SESSION["role"] == 'shef'){
-	header("location:../vue/eroor.php");
+if(!isset($_SESSION['username']) || $_SESSION["role"] == 'client' || $_SESSION["role"] == 'shef'){
+    header("location:../vue/eroor.php");
 }
+
 include("../include/cnx.php");
 $sql = "select count(*) as userscount from users where user_role = 'client'";
 $user = mysqli_query($connect,$sql);
